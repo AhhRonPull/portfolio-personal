@@ -4,24 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Aaron Paul Villanueva | Portfolio</title>
-    <!-- @api: Tailwind CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              portfolio: {
-                bg: '#050508',
-                surface: '#0b0b10',
-                accent: '#f97316',
-                accentSoft: '#fbbf24',
-              },
-            },
-          },
-        },
-      };
-    </script>
+    <!-- Tailwind CSS is precompiled via the Tailwind CLI.
+         Run `npm run build:css` after editing Assets/css/source.css
+         (or `npm run watch:css` while developing). -->
     <link rel="stylesheet" href="Assets/css/main.css" />
   </head>
   <body
@@ -36,7 +21,7 @@
         <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
           <a href="#hero" class="flex items-center gap-2">
             <div
-              class="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-tr from-portfolio-accent to-portfolio-accentSoft text-sm font-semibold text-black shadow-lg shadow-orange-500/40"
+              class="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-tr from-portfolio-accent to-portfolio-accentSoft text-sm font-semibold text-black shadow-lg shadow-amber-500/40"
             >
               AP
             </div>
@@ -59,9 +44,6 @@
             <a href="#experience" class="nav-link hover:text-portfolio-accent"
               >Experience</a
             >
-            <a href="#seminars" class="nav-link hover:text-portfolio-accent"
-              >Seminars</a
-            >
             <a href="#contact" class="nav-link hover:text-portfolio-accent"
               >Contact</a
             >
@@ -69,7 +51,7 @@
           <a
             href="https://github.com/Aaron1231231233123"
             target="_blank"
-            class="hidden rounded-full border border-portfolio-accent/70 bg-portfolio-accent/10 px-4 py-1.5 text-xs font-semibold text-portfolio-accent shadow-md shadow-orange-500/40 transition hover:bg-portfolio-accent hover:text-black md:inline-flex"
+            class="hidden rounded-full border border-portfolio-accent/70 bg-portfolio-accent/10 px-4 py-1.5 text-xs font-semibold text-portfolio-accent shadow-md shadow-amber-500/40 transition hover:bg-portfolio-accent hover:text-black md:inline-flex"
           >
             GitHub
           </a>
@@ -110,7 +92,7 @@
               <div class="flex flex-wrap items-center gap-3">
                 <a
                   href="#projects"
-                  class="inline-flex items-center gap-2 rounded-full bg-portfolio-accent px-5 py-2 text-xs font-semibold text-black shadow-lg shadow-orange-500/40 transition hover:-translate-y-0.5 hover:bg-orange-400"
+                  class="inline-flex items-center gap-2 rounded-full bg-portfolio-accent px-5 py-2 text-xs font-semibold text-black shadow-lg shadow-amber-500/40 transition hover:-translate-y-0.5 hover:bg-amber-300"
                 >
                   View Projects
                   <span class="text-base">↓</span>
@@ -272,8 +254,8 @@
           <div class="mx-auto max-w-6xl px-6 py-14">
             <h2 class="section-title">Projects</h2>
             <p class="mt-3 max-w-2xl text-sm text-slate-300">
-              A selection of projects focused on wellness tracking, decision support,
-              and secure information systems.
+              A selection of projects spanning mobile apps, enterprise systems,
+              data engineering, machine learning, and applied research.
             </p>
 
             <!-- Project Filters -->
@@ -309,18 +291,29 @@
               <button
                 type="button"
                 class="project-filter-pill"
+                data-project-filter="analytics"
+              >
+                Data Analytics
+              </button>
+              <button
+                type="button"
+                class="project-filter-pill"
                 data-project-filter="research"
               >
                 Research
               </button>
             </div>
 
-            <div class="mt-6 grid gap-6 md:grid-cols-2 items-stretch">
+            <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
               <!-- HealthTrack -->
               <article
                 class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-gradient-to-b from-slate-950 to-slate-900/80 p-5"
                 data-project-tags="applications"
               >
+                <div class="project-thumb">
+                  <img src="Assets/img/Project/HealthTrack.png" alt="HealthTrack mobile app preview" loading="lazy" class="is-portrait" />
+                  <span class="project-thumb-label">HealthTrack</span>
+                </div>
                 <div class="flex items-start justify-between gap-4">
                   <div>
                     <h3 class="text-sm font-semibold text-slate-50">
@@ -475,6 +468,10 @@
                 class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-gradient-to-b from-slate-950 to-slate-900/80 p-5"
                 data-project-tags="systems"
               >
+                <div class="project-thumb">
+                  <img src="Assets/img/Project/AVID.png" alt="AVIDSync wellness shop storefront" loading="lazy" />
+                  <span class="project-thumb-label">AVIDSync</span>
+                </div>
                 <div class="flex items-start justify-between gap-4">
                   <div>
                     <h3 class="text-sm font-semibold text-slate-50">
@@ -587,6 +584,10 @@
                 class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-gradient-to-b from-slate-950 to-slate-900/80 p-5"
                 data-project-tags="systems"
               >
+                <div class="project-thumb">
+                  <img src="Assets/img/Project/Crismille.png" alt="Crismille pharmacy stocks dashboard" loading="lazy" />
+                  <span class="project-thumb-label">Crismille</span>
+                </div>
                 <div class="flex items-start justify-between gap-4">
                   <div>
                     <h3 class="text-sm font-semibold text-slate-50">
@@ -676,8 +677,12 @@
               <!-- Red Cross -->
               <article
                 class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-gradient-to-b from-slate-950 to-slate-900/80 p-5"
-                data-project-tags="systems ml research"
+                data-project-tags="systems ml research analytics"
               >
+                <div class="project-thumb">
+                  <img src="Assets/img/Project/Redcross.jpg" alt="Red Cross blood inventory physical examination form" loading="lazy" />
+                  <span class="project-thumb-label">Red Cross</span>
+                </div>
                 <div class="flex items-start justify-between gap-4">
                   <div>
                     <h3 class="text-sm font-semibold text-slate-50">
@@ -809,43 +814,179 @@
                 </div>
               </article>
 
-              <!-- Simple Flutter Profile App -->
+              <!-- ChurnGuard – AI Customer Retention -->
               <article
                 class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-gradient-to-b from-slate-950 to-slate-900/80 p-5"
-                data-project-tags="applications"
+                data-project-tags="ml systems analytics"
               >
+                <div class="project-thumb">
+                  <img src="Assets/img/Project/ChurnGuard.png" alt="ChurnGuard conversational AI assistant" loading="lazy" />
+                  <span class="project-thumb-label">ChurnGuard</span>
+                </div>
                 <div class="flex items-start justify-between gap-4">
                   <div>
                     <h3 class="text-sm font-semibold text-slate-50">
-                      Simple Flutter Profile Site (CIS 228)
+                      ChurnGuard – AI Customer Retention System
                     </h3>
                     <p class="mt-1 text-xs text-slate-300">
-                      Basic multi-platform profile site built with Flutter as part of a
-                      CIS 228 activity, focused on layouts, widgets, and web deployment.
+                      End-to-end churn prediction tool combining a PyTorch
+                      neural network with a conversational web UI and REST API
+                      for retention teams.
                     </p>
                   </div>
                   <span
                     class="inline-flex items-center justify-center text-center leading-tight rounded-full bg-portfolio-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-portfolio-accent"
-                    >Flutter</span
+                    >PyTorch · FastAPI</span
                   >
                 </div>
                 <ul class="mt-3 space-y-1.5 text-[11px] text-slate-300">
-                  <li>• Implemented a clean single-screen profile layout.</li>
-                  <li>• Used common Flutter widgets to display personal details.</li>
-                  <li>• Practiced organizing UI code for readability and reuse.</li>
+                  <li>
+                    • Trained a deep neural network on a 15,000-record dataset
+                    reaching
+                    <span class="font-semibold">93% accuracy</span>, 88%
+                    precision, and an 87% F1-score.
+                  </li>
+                  <li>
+                    • Built the full
+                    <span class="font-medium">ETL, EDA, and feature
+                    engineering</span> pipeline using pandas and scikit-learn.
+                  </li>
+                  <li>
+                    • Shipped a
+                    <span class="font-medium">Chainlit conversational AI</span>
+                    that explains metrics, generates charts, and runs live
+                    churn predictions for non-technical managers.
+                  </li>
+                  <li>
+                    • Exposed a
+                    <span class="font-medium">FastAPI</span>
+                    <span class="font-mono">/predict</span> endpoint returning
+                    probability, risk score, and risk band for external
+                    integrations.
+                  </li>
                 </ul>
                 <div class="mt-auto pt-4 flex flex-wrap items-center justify-between gap-2">
                   <p class="text-[11px] text-slate-400">
-                    Flutter · Dart · Web
+                    PyTorch · Pandas · Scikit-learn · Chainlit · FastAPI
                   </p>
-                  <a
-                    href="https://github.com/Aaron1231231233123/cis_228_our_profile-main"
-                    target="_blank"
-                    class="text-[11px] font-semibold text-portfolio-accent hover:underline"
-                    >View on GitHub →</a
-                  >
                 </div>
               </article>
+
+              <!-- Real-Time Crypto Streaming Analytics -->
+              <article
+                class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-gradient-to-b from-slate-950 to-slate-900/80 p-5"
+                data-project-tags="analytics systems"
+              >
+                <div class="project-thumb">
+                  <img src="Assets/img/Project/ML.jpg" alt="Real-time crypto streaming analytics — predicted vs actual price" loading="lazy" />
+                  <span class="project-thumb-label">Streaming Analytics</span>
+                </div>
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 class="text-sm font-semibold text-slate-50">
+                      Real-Time Crypto Streaming Analytics Pipeline
+                    </h3>
+                    <p class="mt-1 text-xs text-slate-300">
+                      Modern data-engineering stack that ingests, processes,
+                      and visualizes live cryptocurrency trade ticks
+                      end-to-end.
+                    </p>
+                  </div>
+                  <span
+                    class="inline-flex items-center justify-center text-center leading-tight rounded-full bg-portfolio-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-portfolio-accent"
+                    >Kafka · TimescaleDB</span
+                  >
+                </div>
+                <ul class="mt-3 space-y-1.5 text-[11px] text-slate-300">
+                  <li>
+                    • Built a
+                    <span class="font-medium">WebSocket producer</span> tracking
+                    BTC, ETH, SOL, and BNB ticks from Binance with zero data
+                    loss through Apache Kafka buffering.
+                  </li>
+                  <li>
+                    • Used
+                    <span class="font-medium">Faust</span> stream processing to
+                    validate, type-cast, and sink records into TimescaleDB
+                    hypertables.
+                  </li>
+                  <li>
+                    • Designed a
+                    <span class="font-medium">continuous aggregate</span> view
+                    pre-computing 1-minute OHLC candles for fast, lightweight
+                    dashboards.
+                  </li>
+                  <li>
+                    • Visualized live candlesticks and volume in
+                    <span class="font-medium">Grafana</span>, with the entire
+                    stack orchestrated by Docker Compose.
+                  </li>
+                </ul>
+                <div class="mt-auto pt-4 flex flex-wrap items-center justify-between gap-2">
+                  <p class="text-[11px] text-slate-400">
+                    Python · Kafka · Faust · TimescaleDB · Grafana · Docker
+                  </p>
+                </div>
+              </article>
+
+              <!-- Commissary Inventory Management Suite -->
+              <article
+                class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-gradient-to-b from-slate-950 to-slate-900/80 p-5"
+                data-project-tags="systems"
+              >
+                <div class="project-thumb project-thumb-nda">
+                  <img src="Assets/img/Project/Blur_NDA/QGC-Inventory.png" alt="Commissary inventory suite (under NDA)" loading="lazy" />
+                  <span class="project-thumb-label">Confidential · NDA</span>
+                </div>
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 class="text-sm font-semibold text-slate-50">
+                      Commissary Inventory Management Suite
+                    </h3>
+                    <p class="mt-1 text-xs text-slate-300">
+                      Multi-branch inventory and procurement platform built
+                      with a 4-person dev team for a real food-service
+                      operation.
+                    </p>
+                  </div>
+                  <span
+                    class="inline-flex items-center justify-center text-center leading-tight rounded-full bg-portfolio-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-portfolio-accent"
+                    >PHP · PostgreSQL</span
+                  >
+                </div>
+                <ul class="mt-3 space-y-1.5 text-[11px] text-slate-300">
+                  <li>
+                    • Modeled four role-based modules —
+                    <span class="font-medium"
+                      >Admin, Commissary, Procurement, and PFC branches</span
+                    > — with route-level access control.
+                  </li>
+                  <li>
+                    • Implemented a complete
+                    <span class="font-medium"
+                      >request-to-fulfillment workflow</span
+                    > with partial-delivery and FIFO batch tracking.
+                  </li>
+                  <li>
+                    • Built the full
+                    <span class="font-medium">purchase-order lifecycle</span>
+                    linking commissary requests to suppliers via the
+                    procurement module.
+                  </li>
+                  <li>
+                    • Integrated
+                    <span class="font-medium">QR code generation and
+                    scanning</span> for products and dashboards using
+                    DataTables and Chart.js.
+                  </li>
+                </ul>
+                <div class="mt-auto pt-4 flex flex-wrap items-center justify-between gap-2">
+                  <p class="text-[11px] text-slate-400">
+                    PHP 7.4 · PostgreSQL · AdminLTE · jQuery · phpqrcode
+                  </p>
+                </div>
+              </article>
+
             </div>
 
             <!-- Additional Projects & Research -->
@@ -854,16 +995,19 @@
                 Additional Projects &amp; Research
               </h3>
               <p class="max-w-2xl text-[11px] text-slate-400">
-                These projects include research-driven work, prototypes, and
-                data-focused systems that extend my experience beyond the main
-                applications above.
+                Additional production systems, payroll and finance portals,
+                research studies, and analytics work that extend my experience
+                beyond the main applications above.
               </p>
-              <div class="mt-4 grid gap-6 md:grid-cols-2 items-stretch">
+              <div class="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
                 <!-- Product-Led & Outcome-Based Budgeting -->
                 <article
                   class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-slate-950/90 p-5"
                   data-project-tags="research"
                 >
+                  <div class="project-thumb">
+                    <span class="project-thumb-label">Preview Soon</span>
+                  </div>
                   <div class="flex items-start justify-between gap-4">
                     <div>
                       <h4 class="text-sm font-semibold text-slate-50">
@@ -896,12 +1040,6 @@
                   </ul>
                   <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
                     <p class="text-[11px] text-slate-400">Budgeting · ERP · Strategy</p>
-                    <a
-                      href="https://docs.google.com/document/d/1dJEXZFlygOD36dINXBaymh11JD0216aO21Cho1GLvnA/edit?tab=t.0"
-                      target="_blank"
-                      class="text-[11px] font-semibold text-portfolio-accent hover:underline"
-                      >View paper →</a
-                    >
                   </div>
                 </article>
 
@@ -910,6 +1048,9 @@
                   class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-slate-950/90 p-5"
                   data-project-tags="systems"
                 >
+                  <div class="project-thumb">
+                    <span class="project-thumb-label">Preview Soon</span>
+                  </div>
                   <div class="flex items-start justify-between gap-4">
                     <div>
                       <h4 class="text-sm font-semibold text-slate-50">
@@ -943,20 +1084,18 @@
                     <p class="text-[11px] text-slate-400">
                       Healthcare IS · System Design · Python Implementation
                     </p>
-                    <a
-                      href="https://youtu.be/yI87VfCua0E"
-                      target="_blank"
-                      class="text-[11px] font-semibold text-portfolio-accent hover:underline"
-                      >View presentation →</a
-                    >
                   </div>
                 </article>
 
                 <!-- Used Car Price Prediction Web App -->
                 <article
                   class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-slate-950/90 p-5"
-                  data-project-tags="ml research"
+                  data-project-tags="ml analytics research"
                 >
+                  <div class="project-thumb">
+                    <img src="Assets/img/Project/Car_Price_Prediction%20Web.png" alt="Used car price prediction web app — feature contributions" loading="lazy" />
+                    <span class="project-thumb-label">Used Car ML</span>
+                  </div>
                   <div class="flex items-start justify-between gap-4">
                     <div>
                       <h4 class="text-sm font-semibold text-slate-50">
@@ -1000,24 +1139,29 @@
                   </div>
                 </article>
 
-                <!-- Red Cross Donor Web App -->
+                <!-- Red Cross Donor Mobile App -->
                 <article
                   class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-slate-950/90 p-5"
-                  data-project-tags="systems"
+                  data-project-tags="applications systems"
                 >
+                  <div class="project-thumb">
+                    <img src="Assets/img/Project/Redcross_Mobile_App.png" alt="Red Cross donor mobile app — My Donations tracker" loading="lazy" class="is-portrait" />
+                    <span class="project-thumb-label">Mobile App</span>
+                  </div>
                   <div class="flex items-start justify-between gap-4">
                     <div>
                       <h4 class="text-sm font-semibold text-slate-50">
-                        Red Cross Donor Web App (Collaboration)
+                        Red Cross Donor Mobile App (Collaboration)
                       </h4>
                       <p class="mt-1 text-xs text-slate-300">
-                        Progressive, responsive donor-facing web app connected
-                        to the Red Cross blood inventory system.
+                        Mobile-first donor companion app connected to the Red
+                        Cross blood inventory system, with a live donation
+                        tracker (Processed → Stored → Allocated → Used).
                       </p>
                     </div>
                     <span
                       class="inline-flex items-center justify-center text-center leading-tight rounded-full bg-portfolio-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-portfolio-accent"
-                      >Web App</span
+                      >Mobile App</span
                     >
                   </div>
                   <ul class="mt-3 space-y-1.5 text-[11px] text-slate-300">
@@ -1026,12 +1170,12 @@
                       flows for registration, scheduling, and history viewing.
                     </li>
                     <li>
-                      • Helped integrate the donor web app with the main Red
-                      Cross system to keep data synchronized.
+                      • Designed a "My Donations" tracker showing date, blood
+                      type, units, and a live processing pipeline per donation.
                     </li>
                     <li>
-                      • Ensured the experience was mobile-friendly and aligned
-                      with accessibility and clarity goals.
+                      • Integrated the mobile app with the main Red Cross
+                      inventory system to keep donor data synchronized.
                     </li>
                   </ul>
                   <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
@@ -1044,6 +1188,542 @@
                       class="text-[11px] font-semibold text-portfolio-accent hover:underline"
                       >View collaboration repo →</a
                     >
+                  </div>
+                </article>
+
+                <!-- Finance Operations Portal -->
+                <article
+                  class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-slate-950/90 p-5"
+                  data-project-tags="systems"
+                >
+                  <div class="project-thumb">
+                    <span class="project-thumb-label">Preview Soon</span>
+                  </div>
+                  <div class="flex items-start justify-between gap-4">
+                    <div>
+                      <h4 class="text-sm font-semibold text-slate-50">
+                        Finance Operations Portal
+                      </h4>
+                      <p class="mt-1 text-xs text-slate-300">
+                        Role-aware finance portal that routes accounts payable,
+                        payroll, controllers, treasurers, and directors to
+                        dedicated dashboards.
+                      </p>
+                    </div>
+                    <span
+                      class="inline-flex items-center justify-center text-center leading-tight rounded-full bg-portfolio-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-portfolio-accent"
+                      >PHP · MySQL</span
+                    >
+                  </div>
+                  <ul class="mt-3 space-y-1.5 text-[11px] text-slate-300">
+                    <li>
+                      • Implemented session timeouts, secure “remember me”
+                      cookies, and HTTPS-aware authentication.
+                    </li>
+                    <li>
+                      • Position-based redirects route each user (AP, Payroll,
+                      Controller, Treasurer, Director, Disbursement) into the
+                      correct dashboard.
+                    </li>
+                    <li>
+                      • Includes PWA scaffolding (manifest, service worker) for
+                      installable use on shared finance workstations.
+                    </li>
+                  </ul>
+                  <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
+                    <p class="text-[11px] text-slate-400">
+                      PHP · MySQL · PWA · Composer
+                    </p>
+                  </div>
+                </article>
+
+                <!-- Hampco Production & Order Management -->
+                <article
+                  class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-slate-950/90 p-5"
+                  data-project-tags="systems"
+                >
+                  <div class="project-thumb">
+                    <img src="Assets/img/Project/IStronix.jpg" alt="Customer storefront preview" loading="lazy" />
+                    <span class="project-thumb-label">Storefront</span>
+                  </div>
+                  <div class="flex items-start justify-between gap-4">
+                    <div>
+                      <h4 class="text-sm font-semibold text-slate-50">
+                        Hampco Production &amp; Order Management
+                      </h4>
+                      <p class="mt-1 text-xs text-slate-300">
+                        End-to-end manufacturing platform with admin,
+                        member-worker, and customer storefronts for a custom
+                        production line.
+                      </p>
+                    </div>
+                    <span
+                      class="inline-flex items-center justify-center text-center leading-tight rounded-full bg-portfolio-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-portfolio-accent"
+                      >PHP · MariaDB</span
+                    >
+                  </div>
+                  <ul class="mt-3 space-y-1.5 text-[11px] text-slate-300">
+                    <li>
+                      • Built modules for raw materials, production lines, task
+                      assignment, payment verification, and worker overviews.
+                    </li>
+                    <li>
+                      • Implemented
+                      <span class="font-medium">SSE-based real-time
+                      updates</span> so admins see task and payment status
+                      changes without refreshing.
+                    </li>
+                    <li>
+                      • Linked the customer cart and orders directly into the
+                      production pipeline through analytics and waste-report
+                      endpoints.
+                    </li>
+                  </ul>
+                  <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
+                    <p class="text-[11px] text-slate-400">
+                      PHP · MariaDB · jQuery · Server-Sent Events
+                    </p>
+                  </div>
+                </article>
+
+                <!-- Employee Earnings Portal v2.0 -->
+                <article
+                  class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-slate-950/90 p-5"
+                  data-project-tags="systems"
+                >
+                  <div class="project-thumb project-thumb-nda">
+                    <img src="Assets/img/Project/Blur_NDA/TA-PAYSLIP.png" alt="Employee earnings portal v2.0 (under NDA)" loading="lazy" />
+                    <span class="project-thumb-label">Confidential · NDA</span>
+                  </div>
+                  <div class="flex items-start justify-between gap-4">
+                    <div>
+                      <h4 class="text-sm font-semibold text-slate-50">
+                        Employee Earnings Portal (v2.0)
+                      </h4>
+                      <p class="mt-1 text-xs text-slate-300">
+                        PHP/MySQL earnings portal with an iOS-26-inspired
+                        mobile-first redesign for employee dashboards and PDF
+                        statement generation.
+                      </p>
+                    </div>
+                    <span
+                      class="inline-flex items-center justify-center text-center leading-tight rounded-full bg-portfolio-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-portfolio-accent"
+                      >PHP · MySQL</span
+                    >
+                  </div>
+                  <ul class="mt-3 space-y-1.5 text-[11px] text-slate-300">
+                    <li>
+                      • Implemented secure password reset using hashed tokens
+                      and SMTP email notifications.
+                    </li>
+                    <li>
+                      • Generated downloadable
+                      <span class="font-medium">PDF earnings statements</span>
+                      from MySQL records (gross/net pay, deductions, benefits,
+                      tax).
+                    </li>
+                    <li>
+                      • Re-skinned the entire employee experience (Dashboard,
+                      Incentives, 13th Month, Profile) with a responsive
+                      minimalist design.
+                    </li>
+                  </ul>
+                  <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
+                    <p class="text-[11px] text-slate-400">
+                      PHP 8 · MySQL · phpMyAdmin · Composer · SMTP
+                    </p>
+                  </div>
+                </article>
+
+                <!-- Employee Compensation & Loan Portal -->
+                <article
+                  class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-slate-950/90 p-5"
+                  data-project-tags="systems"
+                >
+                  <div class="project-thumb project-thumb-nda">
+                    <img src="Assets/img/Project/Blur_NDA/QGC-PAYSLIP.png" alt="Employee compensation & loan portal (under NDA)" loading="lazy" />
+                    <span class="project-thumb-label">Confidential · NDA</span>
+                  </div>
+                  <div class="flex items-start justify-between gap-4">
+                    <div>
+                      <h4 class="text-sm font-semibold text-slate-50">
+                        Employee Compensation &amp; Loan Portal
+                      </h4>
+                      <p class="mt-1 text-xs text-slate-300">
+                        Internal compensation portal with employee and admin
+                        dashboards, salary loan requests, activity logs, and
+                        role-guarded routing.
+                      </p>
+                    </div>
+                    <span
+                      class="inline-flex items-center justify-center text-center leading-tight rounded-full bg-portfolio-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-portfolio-accent"
+                      >PHP</span
+                    >
+                  </div>
+                  <ul class="mt-3 space-y-1.5 text-[11px] text-slate-300">
+                    <li>
+                      • Built employee and admin dashboards plus a dedicated
+                      <span class="font-medium">loan request and approval
+                      flow</span>.
+                    </li>
+                    <li>
+                      • Added a
+                      <span class="font-medium">role guard layer</span> with
+                      restricted and temporary-block pages for failed access
+                      attempts.
+                    </li>
+                    <li>
+                      • Implemented activity logs and a first-login password
+                      setup flow for new employees.
+                    </li>
+                  </ul>
+                  <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
+                    <p class="text-[11px] text-slate-400">
+                      PHP · MySQL · Composer · Role-based Access
+                    </p>
+                  </div>
+                </article>
+
+                <!-- RSBSA Farmland Management Desktop App -->
+                <article
+                  class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-slate-950/90 p-5"
+                  data-project-tags="systems research"
+                >
+                  <div class="project-thumb">
+                    <span class="project-thumb-label">Preview Soon</span>
+                  </div>
+                  <div class="flex items-start justify-between gap-4">
+                    <div>
+                      <h4 class="text-sm font-semibold text-slate-50">
+                        RSBSA Farmland Management Desktop App
+                      </h4>
+                      <p class="mt-1 text-xs text-slate-300">
+                        Electron + React desktop application for managing
+                        RSBSA farmer registrations, parcels, and distributions
+                        with GIS mapping.
+                      </p>
+                    </div>
+                    <span
+                      class="inline-flex items-center justify-center text-center leading-tight rounded-full bg-portfolio-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-portfolio-accent"
+                      >Electron · React</span
+                    >
+                  </div>
+                  <ul class="mt-3 space-y-1.5 text-[11px] text-slate-300">
+                    <li>
+                      • Designed a PostgreSQL schema covering RSBSA drafts,
+                      submissions, and farmland parcels.
+                    </li>
+                    <li>
+                      • Integrated
+                      <span class="font-medium">Leaflet maps</span> with parcel
+                      drawing and Turf.js spatial logic for visual lot
+                      management.
+                    </li>
+                    <li>
+                      • Built a
+                      <span class="font-medium">decision-support layer</span>
+                      for shortages and audit trails using MUI data grids and
+                      Knex queries.
+                    </li>
+                  </ul>
+                  <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
+                    <p class="text-[11px] text-slate-400">
+                      Electron · React · TypeScript · Vite · PostgreSQL · Leaflet · MUI
+                    </p>
+                  </div>
+                </article>
+
+                <!-- Gym Membership Management System -->
+                <article
+                  class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-slate-950/90 p-5"
+                  data-project-tags="systems"
+                >
+                  <div class="project-thumb">
+                    <span class="project-thumb-label">Preview Soon</span>
+                  </div>
+                  <div class="flex items-start justify-between gap-4">
+                    <div>
+                      <h4 class="text-sm font-semibold text-slate-50">
+                        Gym Membership Management System
+                      </h4>
+                      <p class="mt-1 text-xs text-slate-300">
+                        Web-based gym membership platform with PWA support and
+                        four distinct roles: admin, staff, trainer, and
+                        member.
+                      </p>
+                    </div>
+                    <span
+                      class="inline-flex items-center justify-center text-center leading-tight rounded-full bg-portfolio-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-portfolio-accent"
+                      >PHP · MySQL</span
+                    >
+                  </div>
+                  <ul class="mt-3 space-y-1.5 text-[11px] text-slate-300">
+                    <li>
+                      • Built modules for members, plans, payments, attendance
+                      check-in, and reporting tied to a clean MySQL schema.
+                    </li>
+                    <li>
+                      • Implemented
+                      <span class="font-medium">role-scoped permissions</span>
+                      so trainers, staff, admins, and members each see only
+                      what they need.
+                    </li>
+                    <li>
+                      • Added a member-facing portal (dashboard, profile,
+                      membership status, history) with PWA scaffolding for
+                      “Add to Home Screen”.
+                    </li>
+                  </ul>
+                  <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
+                    <p class="text-[11px] text-slate-400">
+                      PHP · MySQL · PWA · Bootstrap
+                    </p>
+                  </div>
+                </article>
+
+                <!-- Anti-Dagdag Accounting Management System -->
+                <article
+                  class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-slate-950/90 p-5"
+                  data-project-tags="systems"
+                >
+                  <div class="project-thumb">
+                    <span class="project-thumb-label">Preview Soon</span>
+                  </div>
+                  <div class="flex items-start justify-between gap-4">
+                    <div>
+                      <h4 class="text-sm font-semibold text-slate-50">
+                        Anti-Dagdag Accounting Management System
+                      </h4>
+                      <p class="mt-1 text-xs text-slate-300">
+                        Early-stage accounting management exploration focused
+                        on anti-padding (“anti-dagdag”) controls in financial
+                        records.
+                      </p>
+                    </div>
+                    <span
+                      class="inline-flex items-center justify-center text-center leading-tight rounded-full bg-portfolio-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-portfolio-accent"
+                      >Concept</span
+                    >
+                  </div>
+                  <ul class="mt-3 space-y-1.5 text-[11px] text-slate-300">
+                    <li>
+                      • Scoping work for an accounting platform that flags
+                      suspicious adjustments and protects entry integrity.
+                    </li>
+                    <li>
+                      • Repository scaffolded with baseline structure and
+                      versioning ready for module-by-module build-out.
+                    </li>
+                  </ul>
+                  <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
+                    <p class="text-[11px] text-slate-400">
+                      Accounting Controls · System Design · Concept Stage
+                    </p>
+                  </div>
+                </article>
+
+                <!-- TradingML – Quant Trading Workflow -->
+                <article
+                  class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-slate-950/90 p-5"
+                  data-project-tags="ml analytics research"
+                >
+                  <div class="project-thumb">
+                    <img src="Assets/img/Project/AutoSell.jpg" alt="TradingML AutoSell predicted bullish/bearish candlesticks" loading="lazy" />
+                    <span class="project-thumb-label">TradingML</span>
+                  </div>
+                  <div class="flex items-start justify-between gap-4">
+                    <div>
+                      <h4 class="text-sm font-semibold text-slate-50">
+                        TradingML – Quant Trading Workflow
+                      </h4>
+                      <p class="mt-1 text-xs text-slate-300">
+                        End-to-end quant practice project that blends price
+                        data, news sentiment, and chart-pattern OCR into a
+                        risk-first BUY/SELL/HOLD signal.
+                      </p>
+                    </div>
+                    <span
+                      class="inline-flex items-center justify-center text-center leading-tight rounded-full bg-portfolio-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-portfolio-accent"
+                      >Python · ML</span
+                    >
+                  </div>
+                  <ul class="mt-3 space-y-1.5 text-[11px] text-slate-300">
+                    <li>
+                      • Trained a
+                      <span class="font-medium">hybrid RandomForest + MLP
+                      classifier</span> on engineered price features for BTC,
+                      gold, and stock symbols.
+                    </li>
+                    <li>
+                      • Ingested live data from Alpaca and Google News RSS,
+                      then OCR-scanned chart screenshots via Tesseract for
+                      pattern signals.
+                    </li>
+                    <li>
+                      • Built a
+                      <span class="font-medium">RiskEngine</span> enforcing 1%
+                      per-trade risk and 5% daily loss caps with proper
+                      position sizing.
+                    </li>
+                    <li>
+                      • Logged params, metrics, and chart artifacts to
+                      <span class="font-medium">MLflow</span>; shipped a
+                      Streamlit dashboard for one-click runs.
+                    </li>
+                  </ul>
+                  <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
+                    <p class="text-[11px] text-slate-400">
+                      Python · scikit-learn · MLflow · Streamlit · Alpaca · Tesseract
+                    </p>
+                  </div>
+                </article>
+
+                <!-- WVSU MPC Premium Forecasting -->
+                <article
+                  class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-slate-950/90 p-5"
+                  data-project-tags="analytics research"
+                >
+                  <div class="project-thumb">
+                    <img src="Assets/img/Project/WVSU_Insurance_Dashboard.png" alt="WVSU MPC insurance forecast dashboard" loading="lazy" />
+                    <span class="project-thumb-label">WVSU MPC</span>
+                  </div>
+                  <div class="flex items-start justify-between gap-4">
+                    <div>
+                      <h4 class="text-sm font-semibold text-slate-50">
+                        WVSU MPC Insurance – Premium Forecasting
+                      </h4>
+                      <p class="mt-1 text-xs text-slate-300">
+                        Time-series forecasting study on monthly premium
+                        collections to support budgeting and reserve planning
+                        for WVSU MPC.
+                      </p>
+                    </div>
+                    <span
+                      class="inline-flex items-center justify-center text-center leading-tight rounded-full bg-portfolio-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-portfolio-accent"
+                      >Python · Forecasting</span
+                    >
+                  </div>
+                  <ul class="mt-3 space-y-1.5 text-[11px] text-slate-300">
+                    <li>
+                      • Applied
+                      <span class="font-medium"
+                        >Holt Exponential Smoothing with additive damped
+                        trend</span
+                      > to a star-schema premium dataset.
+                    </li>
+                    <li>
+                      • Validated accuracy on a holdout test set using MAE and
+                      MAPE metrics.
+                    </li>
+                    <li>
+                      • Produced a 6-month forecast and exported the result to
+                      Excel for direct
+                      <span class="font-medium">Power BI</span> dashboard
+                      consumption.
+                    </li>
+                  </ul>
+                  <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
+                    <p class="text-[11px] text-slate-400">
+                      Python · pandas · statsmodels · scikit-learn · Power BI
+                    </p>
+                  </div>
+                </article>
+
+                <!-- Climate Awareness & Preparedness Thesis Analytics -->
+                <article
+                  class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-slate-950/90 p-5"
+                  data-project-tags="analytics research"
+                >
+                  <div class="project-thumb project-thumb-nda">
+                    <img src="Assets/img/Project/Blur_NDA/Climate.png" alt="Climate Awareness thesis analytics (preview)" loading="lazy" />
+                    <span class="project-thumb-label">Confidential · NDA</span>
+                  </div>
+                  <div class="flex items-start justify-between gap-4">
+                    <div>
+                      <h4 class="text-sm font-semibold text-slate-50">
+                        Climate-Induced Hazards Awareness Thesis Analytics
+                      </h4>
+                      <p class="mt-1 text-xs text-slate-300">
+                        Automated Chapter-4-style statistical engine for a
+                        thesis on community awareness, risk, preparedness, and
+                        barriers in Governor Generoso.
+                      </p>
+                    </div>
+                    <span
+                      class="inline-flex items-center justify-center text-center leading-tight rounded-full bg-portfolio-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-portfolio-accent"
+                      >Research</span
+                    >
+                  </div>
+                  <ul class="mt-3 space-y-1.5 text-[11px] text-slate-300">
+                    <li>
+                      • Cleaned and validated 139 respondent records across
+                      four independent domain mappings for full data
+                      consistency.
+                    </li>
+                    <li>
+                      • Computed weighted means,
+                      <span class="font-medium"
+                        >Pearson product-moment correlations</span
+                      >, and linear regression trendlines per barangay.
+                    </li>
+                    <li>
+                      • Generated 100% stacked bars, correlation heatmaps, and
+                      age-cohort heatmaps to expose vulnerability patterns
+                      visually.
+                    </li>
+                  </ul>
+                  <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
+                    <p class="text-[11px] text-slate-400">
+                      Python · pandas · matplotlib · Statistical Analysis
+                    </p>
+                  </div>
+                </article>
+
+                <!-- Microplastics Data Analytics Report -->
+                <article
+                  class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-slate-950/90 p-5"
+                  data-project-tags="analytics research"
+                >
+                  <div class="project-thumb project-thumb-nda">
+                    <img src="Assets/img/Project/Blur_NDA/Mircroplastics.png" alt="Microplastics data analytics report (preview)" loading="lazy" />
+                    <span class="project-thumb-label">Confidential · NDA</span>
+                  </div>
+                  <div class="flex items-start justify-between gap-4">
+                    <div>
+                      <h4 class="text-sm font-semibold text-slate-50">
+                        Microplastics in Thalassia hemprichii – Data Analytics
+                      </h4>
+                      <p class="mt-1 text-xs text-slate-300">
+                        Undergraduate data analytics study on microplastic
+                        occurrence in seagrass, sediment, and water at
+                        Basarte Mangrove Park, Davao Oriental.
+                      </p>
+                    </div>
+                    <span
+                      class="inline-flex items-center justify-center text-center leading-tight rounded-full bg-portfolio-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-portfolio-accent"
+                      >Analytics</span
+                    >
+                  </div>
+                  <ul class="mt-3 space-y-1.5 text-[11px] text-slate-300">
+                    <li>
+                      • Catalogued 16 microplastic particles across 942
+                      seagrass shoots from 600 sub-boxes within three transects
+                      and eight quadrats.
+                    </li>
+                    <li>
+                      • Performed comparative analytics on morphology, color,
+                      and polymer type across water, sediment, and seagrass-blade
+                      media.
+                    </li>
+                    <li>
+                      • Authored a figure-by-figure analytics web report tying
+                      findings to actionable source-control implications.
+                    </li>
+                  </ul>
+                  <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
+                    <p class="text-[11px] text-slate-400">
+                      HTML · CSS · Data Analytics · Environmental Reporting
+                    </p>
                   </div>
                 </article>
               </div>
@@ -1141,315 +1821,6 @@
                   environment.
                 </li>
               </ul>
-            </div>
-          </div>
-        </section>
-
-        <!-- Seminars & Certificates -->
-        <section
-          id="seminars"
-          class="section-observe border-b border-slate-900/70 bg-black"
-        >
-          <div class="mx-auto max-w-6xl px-6 py-14">
-            <h2 class="section-title">Seminars &amp; Certificates</h2>
-            <p class="mt-3 max-w-2xl text-sm text-slate-300">
-              Selected seminars, trainings, and conferences that strengthened my
-              foundation in UX, cybersecurity, AI, project management, and modern
-              software practices.
-            </p>
-
-            <div class="mt-8 grid gap-6 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1.2fr)]">
-              <div class="space-y-3 text-[11px] text-slate-200">
-                <div class="seminar-item">
-                  <p class="font-semibold text-slate-50">
-                    Unlocking UX/UI Essentials: Crafting Human-Centered Digital
-                    Experiences
-                  </p>
-                  <p class="text-slate-400">
-                    West Visayas State University – Main · September 21, 2021
-                  </p>
-                </div>
-                <div class="seminar-item">
-                  <p class="font-semibold text-slate-50">
-                    IT Project Management and Agile Methodologies
-                  </p>
-                  <p class="text-slate-400">
-                    West Visayas State University – Main · October 20, 2023
-                  </p>
-                </div>
-                <div class="seminar-item">
-                  <p class="font-semibold text-slate-50">
-                    Traverse Through Transitions: Digital Transformation and IT
-                    Strategy
-                  </p>
-                  <p class="text-slate-400">
-                    West Visayas State University – Main · September 21, 2024
-                  </p>
-                </div>
-                <div class="seminar-item">
-                  <p class="font-semibold text-slate-50">
-                    Design with Purpose: Usable and Accessible UX for the Future
-                  </p>
-                  <p class="text-slate-400">
-                    West Visayas State University – Main · September 19, 2025
-                  </p>
-                </div>
-                <div class="seminar-item">
-                  <p class="font-semibold text-slate-50">
-                    Artificial Intelligence in Governance: Promise and Ethical Issues
-                  </p>
-                  <p class="text-slate-400">
-                    West Visayas State University – Main · September 26, 2025
-                  </p>
-                </div>
-                <div class="seminar-item">
-                  <p class="font-semibold text-slate-50">
-                    Chaos to Clarity: Using PM Tools to Strengthen Leadership and Team
-                    Collaboration
-                  </p>
-                  <p class="text-slate-400">
-                    West Visayas State University – Main · October 3, 2025
-                  </p>
-                </div>
-                <div class="seminar-item">
-                  <p class="font-semibold text-slate-50">
-                    SHIFT-LEFT SECURITY: Building Safer Pipelines with DevSecOps
-                    and Automated Checks
-                  </p>
-                  <p class="text-slate-400">
-                    West Visayas State University – Main · October 17, 2025
-                  </p>
-                </div>
-                <div class="seminar-item">
-                  <p class="font-semibold text-slate-50">
-                    Cybersecurity Career Insights: Building a Path in the Digital World
-                  </p>
-                  <p class="text-slate-400">
-                    West Visayas State University – Main · October 17, 2025
-                  </p>
-                </div>
-                <div class="seminar-item">
-                  <p class="font-semibold text-slate-50">
-                    Beyond the Rules: Redefining Responsible AI in Regulated Industries
-                  </p>
-                  <p class="text-slate-400">
-                    West Visayas State University – Main · October 24, 2025
-                  </p>
-                </div>
-                <div class="seminar-item">
-                  <p class="font-semibold text-slate-50">
-                    From Code Refactoring to Data Protection: Applying Generative AI in
-                    System Development
-                  </p>
-                  <p class="text-slate-400">
-                    West Visayas State University – Main · October 31, 2025
-                  </p>
-                </div>
-                <div class="seminar-item">
-                  <p class="font-semibold text-slate-50">
-                    From Data to Decisions: Building Intelligence Through Analytics
-                    Engineering
-                  </p>
-                  <p class="text-slate-400">
-                    West Visayas State University – Main · October 31, 2025
-                  </p>
-                </div>
-              </div>
-
-              <!-- Certificates Grid -->
-              <div
-                class="grid gap-3 rounded-2xl border border-slate-800/80 bg-slate-950/70 p-4 text-[11px]"
-                data-cert-gallery
-              >
-                <p class="mb-2 text-xs font-semibold text-slate-100">
-                  Certificate Snapshots
-                </p>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                  <figure
-                    class="cert-card cursor-pointer"
-                    data-cert-card
-                    data-title="Unlocking UX/UI Essentials"
-                    data-src="Assets/img/Certificates/Unlocking_Ux_Ui.png"
-                  >
-                    <img
-                      src="Assets/img/Certificates/Unlocking_Ux_Ui.png"
-                      alt="Certificate - Unlocking UX/UI Essentials"
-                      class="h-24 w-full rounded-md object-cover"
-                    />
-                    <figcaption class="mt-1 text-[10px] text-slate-300">
-                      Unlocking UX/UI Essentials
-                    </figcaption>
-                  </figure>
-                  <figure
-                    class="cert-card cursor-pointer"
-                    data-cert-card
-                    data-title="IT Project Management & Agile"
-                    data-src="Assets/img/Certificates/Project_Management.png"
-                  >
-                    <img
-                      src="Assets/img/Certificates/Project_Management.png"
-                      alt="Certificate - Project Management & Agile"
-                      class="h-24 w-full rounded-md object-cover"
-                    />
-                    <figcaption class="mt-1 text-[10px] text-slate-300">
-                      IT Project Management &amp; Agile
-                    </figcaption>
-                  </figure>
-                  <figure
-                    class="cert-card cursor-pointer"
-                    data-cert-card
-                    data-title="Chaos to Clarity"
-                    data-src="Assets/img/Certificates/Chaos_To_Clarity.png"
-                  >
-                    <img
-                      src="Assets/img/Certificates/Chaos_To_Clarity.png"
-                      alt="Certificate - Chaos to Clarity"
-                      class="h-24 w-full rounded-md object-cover"
-                    />
-                    <figcaption class="mt-1 text-[10px] text-slate-300">
-                      Chaos to Clarity
-                    </figcaption>
-                  </figure>
-                  <figure
-                    class="cert-card cursor-pointer"
-                    data-cert-card
-                    data-title="Shift-Left Security"
-                    data-src="Assets/img/Certificates/Shift_Left_Security.png"
-                  >
-                    <img
-                      src="Assets/img/Certificates/Shift_Left_Security.png"
-                      alt="Certificate - Shift Left Security"
-                      class="h-24 w-full rounded-md object-cover"
-                    />
-                    <figcaption class="mt-1 text-[10px] text-slate-300">
-                      Shift-Left Security
-                    </figcaption>
-                  </figure>
-                  <figure
-                    class="cert-card cursor-pointer cert-extra hidden"
-                    data-cert-card
-                    data-title="AI in Governance"
-                    data-src="Assets/img/Certificates/AI_in_Governance.png"
-                  >
-                    <img
-                      src="Assets/img/Certificates/AI_in_Governance.png"
-                      alt="Certificate - AI in Governance"
-                      class="h-24 w-full rounded-md object-cover"
-                    />
-                    <figcaption class="mt-1 text-[10px] text-slate-300">
-                      AI in Governance
-                    </figcaption>
-                  </figure>
-                  <figure
-                    class="cert-card cursor-pointer cert-extra hidden"
-                    data-cert-card
-                    data-title="Generative AI in System Development"
-                    data-src="Assets/img/Certificates/From_Code_To_Refactoring.png"
-                  >
-                    <img
-                      src="Assets/img/Certificates/From_Code_To_Refactoring.png"
-                      alt="Certificate - From Code Refactoring to Data Protection"
-                      class="h-24 w-full rounded-md object-cover"
-                    />
-                    <figcaption class="mt-1 text-[10px] text-slate-300">
-                      Generative AI in System Development
-                    </figcaption>
-                  </figure>
-                  <figure
-                    class="cert-card cursor-pointer cert-extra hidden"
-                    data-cert-card
-                    data-title="Traverse Through Transition"
-                    data-src="Assets/img/Certificates/Traverse_Through_Transition.png"
-                  >
-                    <img
-                      src="Assets/img/Certificates/Traverse_Through_Transition.png"
-                      alt="Certificate - Traverse Through Transition"
-                      class="h-24 w-full rounded-md object-cover"
-                    />
-                    <figcaption class="mt-1 text-[10px] text-slate-300">
-                      Traverse Through Transition
-                    </figcaption>
-                  </figure>
-                  <figure
-                    class="cert-card cursor-pointer cert-extra hidden"
-                    data-cert-card
-                    data-title="Cybersecurity Career Insights"
-                    data-src="Assets/img/Certificates/Cybersecurity_Career_Insights.png"
-                  >
-                    <img
-                      src="Assets/img/Certificates/Cybersecurity_Career_Insights.png"
-                      alt="Certificate - Cybersecurity Career Insights"
-                      class="h-24 w-full rounded-md object-cover"
-                    />
-                    <figcaption class="mt-1 text-[10px] text-slate-300">
-                      Cybersecurity Career Insights
-                    </figcaption>
-                  </figure>
-                  <figure
-                    class="cert-card cursor-pointer cert-extra hidden"
-                    data-cert-card
-                    data-title="Design With Purpose"
-                    data-src="Assets/img/Certificates/Desing_With_Purpose.png"
-                  >
-                    <img
-                      src="Assets/img/Certificates/Desing_With_Purpose.png"
-                      alt="Certificate - Design With Purpose"
-                      class="h-24 w-full rounded-md object-cover"
-                    />
-                    <figcaption class="mt-1 text-[10px] text-slate-300">
-                      Design With Purpose
-                    </figcaption>
-                  </figure>
-                  <figure
-                    class="cert-card cursor-pointer cert-extra hidden"
-                    data-cert-card
-                    data-title="Beyond the Rules"
-                    data-src="Assets/img/Certificates/Beyond_The_Rules.png"
-                  >
-                    <img
-                      src="Assets/img/Certificates/Beyond_The_Rules.png"
-                      alt="Certificate - Beyond The Rules"
-                      class="h-24 w-full rounded-md object-cover"
-                    />
-                    <figcaption class="mt-1 text-[10px] text-slate-300">
-                      Beyond The Rules
-                    </figcaption>
-                  </figure>
-                  <figure
-                    class="cert-card cursor-pointer cert-extra hidden"
-                    data-cert-card
-                    data-title="Beyond Hello World"
-                    data-src="Assets/img/Certificates/Beyond_Hello_World.png"
-                  >
-                    <img
-                      src="Assets/img/Certificates/Beyond_Hello_World.png"
-                      alt="Certificate - Beyond Hello World"
-                      class="h-24 w-full rounded-md object-cover"
-                    />
-                    <figcaption class="mt-1 text-[10px] text-slate-300">
-                      Beyond Hello World
-                    </figcaption>
-                  </figure>
-                  <!-- View more / Show fewer tile (always last) -->
-                  <figure
-                    class="cert-card cert-toggle-tile group flex cursor-pointer items-center justify-center rounded-md border border-dashed border-portfolio-accent/40 bg-black/40 h-24 w-full transition hover:bg-portfolio-accent/10 hover:shadow-[0_0_0_1px_rgba(249,115,22,0.6),0_18px_40px_rgba(0,0,0,0.9)]"
-                    data-cert-toggle-wrapper
-                  >
-                    <button
-                      type="button"
-                      data-cert-toggle
-                      class="flex flex-col items-center justify-center text-[10px] font-semibold text-slate-200 focus:outline-none"
-                    >
-                      <span class="text-xs text-portfolio-accent">
-                        View more
-                      </span>
-                      <span class="mt-1 text-[9px] text-slate-400">
-                        See all certificates
-                      </span>
-                    </button>
-                  </figure>
-                </div>
-              </div>
             </div>
           </div>
         </section>

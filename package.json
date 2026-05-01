@@ -1,0 +1,14 @@
+{
+  "name": "portfolio-personal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal portfolio for Aaron Paul Villanueva. Tailwind CSS is built locally via the Tailwind CLI.",
+  "scripts": {
+    "build:css": "tailwindcss -i ./Assets/css/source.css -o ./Assets/css/main.css --minify",
+    "watch:css": "tailwindcss -i ./Assets/css/source.css -o ./Assets/css/main.css --watch",
+    "build": "npm run build:css"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}

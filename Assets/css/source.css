@@ -1,0 +1,379 @@
+/*
+ * Portfolio source CSS — input file for Tailwind CLI.
+ *
+ * Run `npm run build:css` to compile this into Assets/css/main.css
+ * (or `npm run watch:css` to rebuild on every save).
+ *
+ * Theme: deep midnight navy with refined gold accents for a
+ * pronounced yet respectable, professional aesthetic.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  scroll-behavior: smooth;
+}
+
+.section-title {
+  @apply text-lg md:text-xl font-semibold text-slate-50 tracking-wide;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 2px;
+  margin-top: 0.4rem;
+  background: linear-gradient(
+    to right,
+    rgba(212, 175, 55, 1),
+    rgba(245, 215, 110, 0.85)
+  );
+}
+
+/* Scroll reveal animation.
+   Content is visible by default so the page never appears blank if
+   JavaScript fails to load or the IntersectionObserver doesn't fire.
+   The .js-ready class is added by main.js immediately on load; only
+   then do we hide sections so they can animate in as the user scrolls. */
+.section-observe {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.js-ready .section-observe {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.js-ready .section-observe.section-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   Project cards
+   Refined for a denser 4-column grid: cleaner borders, subtle
+   depth, hover lift with gold accent, and image hover zoom.
+   ============================================================ */
+.project-card {
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s ease-out, border-color 0.3s ease-out,
+    background-color 0.25s ease-out;
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(212, 175, 55, 0.08);
+}
+
+/* Compact card layout.
+   The card surfaces image + title + 1-2 line description + tech pill +
+   "View details" action. The full bullet list and verbose tech stack live
+   inside the details modal so the grid stays scannable. */
+.project-card > ul {
+  display: none;
+}
+
+/* Hide the verbose tech-stack line at the bottom of the card; it becomes
+   a "Tech Stack" section in the modal instead. */
+.project-card > div:last-of-type p.text-slate-400 {
+  display: none;
+}
+
+/* Always push the footer (last div) to the bottom so cards in the same
+   row line up regardless of how short the description is. */
+.project-card > div:last-of-type {
+  margin-top: auto;
+  padding-top: 0.875rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+/* Refined "View details" trigger button — matches both hand-written
+   triggers and the JS-auto-injected ones. */
+.project-card [data-project-open],
+.project-details-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(212, 175, 55, 0.95);
+  transition: color 0.18s ease-out, gap 0.2s ease-out;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.project-card [data-project-open]:hover,
+.project-details-trigger:hover {
+  color: rgba(245, 215, 110, 1);
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+/* External GitHub-style links inside cards keep an underline-on-hover
+   signal so users can distinguish "open modal" from "leave site". */
+.project-card a[href][target="_blank"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(212, 175, 55, 0.85);
+  transition: color 0.18s ease-out;
+}
+
+.project-card a[href][target="_blank"]:hover {
+  color: rgba(245, 215, 110, 1);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Image thumbnail / placeholder area at the top of every project card.
+   Drop an <img> inside .project-thumb to override the placeholder.
+   When an image is present we automatically swap to a clean solid
+   border, hide the redundant label, and add a soft bottom fade so the
+   screenshot transitions gracefully into the card body. */
+.project-thumb {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  margin-bottom: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 0.625rem;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: linear-gradient(135deg, #0d1a33 0%, #060d1e 60%, #03070f 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    inset 0 -22px 36px -22px rgba(0, 0, 0, 0.55);
+}
+
+/* Empty placeholder cards keep the dashed gold "awaiting screenshot" look. */
+.project-thumb:not(:has(img)) {
+  border: 1px dashed rgba(212, 175, 55, 0.3);
+}
+
+.project-thumb::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(
+      circle at 22% 28%,
+      rgba(212, 175, 55, 0.16) 0%,
+      transparent 45%
+    ),
+    radial-gradient(
+      circle at 78% 72%,
+      rgba(245, 215, 110, 0.1) 0%,
+      transparent 45%
+    );
+  pointer-events: none;
+  transition: opacity 0.3s ease-out;
+}
+
+/* Quiet the radial pattern when an actual screenshot is present. */
+.project-thumb:has(img)::before {
+  opacity: 0;
+}
+
+/* Soft bottom fade on imaged thumbs (skipped on NDA variant which has its
+   own overlay). Helps the screenshot transition into the card body. */
+.project-thumb:has(img):not(.project-thumb-nda)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(
+    to bottom,
+    transparent 55%,
+    rgba(6, 13, 30, 0.55) 100%
+  );
+  pointer-events: none;
+}
+
+.project-thumb-label {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(212, 175, 55, 0.78);
+}
+
+.project-thumb-label::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: rgba(212, 175, 55, 0.72);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+/* Hide the redundant label when a real screenshot is shown (NDA cards keep
+   their centered "Confidential · NDA" badge — handled below). */
+.project-thumb:has(img):not(.project-thumb-nda) .project-thumb-label {
+  display: none;
+}
+
+.project-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  z-index: 2;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Portrait screenshots (mobile apps) — letterbox instead of crop so the
+   full phone-sized UI is visible. */
+.project-thumb img.is-portrait {
+  object-fit: contain;
+  background: #060d1e;
+  padding: 0.25rem 0;
+}
+
+.project-card:hover .project-thumb img {
+  transform: scale(1.035);
+}
+
+.project-card:hover .project-thumb img.is-portrait {
+  transform: scale(1.02);
+}
+
+/* NDA / confidential variant: blur the underlying screenshot and overlay a
+   centered "Confidential — NDA" badge so client work can be previewed without
+   leaking sensitive UI details. */
+.project-thumb-nda {
+  border-style: solid;
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+.project-thumb-nda img {
+  filter: blur(14px) saturate(0.85) brightness(0.85);
+  transform: scale(1.08);
+}
+
+.project-card:hover .project-thumb-nda img {
+  transform: scale(1.12);
+}
+
+.project-thumb-nda::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(
+    135deg,
+    rgba(13, 26, 51, 0.45) 0%,
+    rgba(6, 13, 30, 0.6) 100%
+  );
+  pointer-events: none;
+}
+
+.project-thumb-nda .project-thumb-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  padding: 0.4rem 0.85rem;
+  background: rgba(6, 13, 30, 0.78);
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  border-radius: 9999px;
+  color: rgba(245, 215, 110, 0.95);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  backdrop-filter: blur(2px);
+}
+
+.nav-link-active {
+  color: rgb(212 175 55);
+}
+
+/* Simple fade / slide animation for project filter cards and modals */
+@keyframes fadeInUpSoft {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeOutDownSoft {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+
+.modal-animate-in {
+  animation: fadeInUpSoft 0.25s ease-out both;
+}
+
+.modal-animate-out {
+  animation: fadeOutDownSoft 0.2s ease-in both;
+}
+
+.cert-animate-in {
+  animation: fadeInUpSoft 0.35s ease-out both;
+}
+
+.project-filter-pill {
+  cursor: pointer;
+  border-radius: 9999px; /* rounded-full */
+  border: 1px solid rgba(148, 163, 184, 0.8); /* slate-400/80 approx */
+  background-color: rgba(15, 23, 42, 0.6); /* slate-900/60 approx */
+  padding: 0.375rem 0.75rem; /* py-1.5 px-3 */
+  font-size: 11px;
+  font-weight: 500;
+  color: #e5e7eb; /* slate-200 */
+  transition-property: background-color, border-color, color, transform,
+    box-shadow;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+
+.project-filter-pill:hover {
+  border-color: #d4af37; /* portfolio-accent */
+  color: #d4af37;
+}
+
+.project-filter-pill:active {
+  transform: scale(0.97);
+}
+
+.project-filter-pill-active {
+  border-color: #d4af37;
+  background-color: rgba(13, 26, 51, 0.9);
+  color: #d4af37;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
