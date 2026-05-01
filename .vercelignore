@@ -1,0 +1,19 @@
+# Build/runtime dependencies that should never reach the static deploy
+node_modules
+
+# Local source-only inputs for the portfolio (not part of the deployed site)
+Projects
+
+# OS / IDE files
+.DS_Store
+Thumbs.db
+.vscode
+.idea
+
+# Logs
+*.log
+npm-debug.log*
+
+# Local env files
+.env
+.env.local
