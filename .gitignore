@@ -15,3 +15,9 @@ yarn-error.log*
 # Local env
 .env
 .env.local
+
+# Source project mirrors used only as input/reference for the portfolio
+# write-ups. The portfolio site itself only needs index.html, Assets/, and
+# the build files — the full client/school project repos under Projects/
+# can be huge and shouldn't bloat this repo.
+Projects/
