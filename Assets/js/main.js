@@ -322,49 +322,167 @@ class ProjectDetailsModal {
   }
 }
 
-class ProjectFilter {
+class ProjectFilterPaginator {
   constructor() {
-    this.buttons = document.querySelectorAll('[data-project-filter]');
-    this.cards = document.querySelectorAll('[data-project-tags]');
+    this.PER_PAGE = 6;
+
+    // --- Main grid ---
+    this.mainGrid      = document.getElementById('projects-grid');
+    this.mainCards     = this.mainGrid
+      ? Array.from(this.mainGrid.querySelectorAll('[data-project-tags]'))
+      : [];
+
+    // --- Additional grid ---
+    this.addGrid       = document.getElementById('additional-grid');
+    this.addCards      = this.addGrid
+      ? Array.from(this.addGrid.querySelectorAll('[data-project-tags]'))
+      : [];
+
+    // Additional projects wrapper (to show/hide)
+    this.addWrapper    = document.getElementById('additional-projects-wrapper');
+
+    // Combine them into a single list
+    this.allCards      = [...this.mainCards, ...this.addCards];
+
+    // Single unified pagination controls
+    this.nav           = document.getElementById('projects-pagination');
+    this.infoEl        = document.getElementById('projects-pagination-info');
+    this.page          = 1;
+
+    // Filter buttons (shared)
+    this.buttons       = document.querySelectorAll('[data-project-filter]');
+    this.activeFilter  = 'all';
   }
 
   init() {
-    if (!this.buttons.length || !this.cards.length) return;
+    if (!this.buttons.length) return;
 
     this.buttons.forEach((btn) => {
       btn.addEventListener('click', () => {
-        const filter = btn.getAttribute('data-project-filter') ?? 'all';
-        this.applyFilter(filter);
+        this.activeFilter = btn.getAttribute('data-project-filter') ?? 'all';
+        this.page = 1;
         this.updateActiveButton(btn);
+        this.render();
       });
     });
+
+    this.render();
   }
 
-  updateActiveButton(activeBtn) {
-    this.buttons.forEach((btn) => {
-      btn.classList.remove('project-filter-pill-active');
-    });
-    activeBtn.classList.add('project-filter-pill-active');
-  }
-
-  applyFilter(filter) {
-    const normalized = filter.toLowerCase();
-
-    this.cards.forEach((card) => {
+  /** Returns only the cards that pass the current filter. */
+  filtered(cards) {
+    const f = this.activeFilter.toLowerCase();
+    if (f === 'all') return cards;
+    return cards.filter((card) => {
       const tags = (card.getAttribute('data-project-tags') || '').toLowerCase();
-      const isMatch =
-        normalized === 'all' ||
-        tags.split(/\s+/).some((tag) => tag && tag === normalized);
+      return tags.split(/\s+/).some((t) => t && t === f);
+    });
+  }
 
-      if (isMatch) {
+  /** Render grids and unified pagination. */
+  render() {
+    if (!this.nav) return;
+
+    const visible  = this.filtered(this.allCards);
+    const total    = visible.length;
+    const pages    = Math.max(1, Math.ceil(total / this.PER_PAGE));
+    const page     = Math.min(this.page, pages);
+    this.page      = page;
+    const start    = (page - 1) * this.PER_PAGE;
+    const end      = start + this.PER_PAGE;
+
+    // Get the slice of cards to display on this page
+    const pageCards = visible.slice(start, end);
+
+    // Show/hide all cards based on whether they are on this page
+    this.allCards.forEach((card) => {
+      if (pageCards.includes(card)) {
         card.classList.remove('hidden');
         card.classList.add('cert-animate-in');
       } else {
         card.classList.add('hidden');
+        card.classList.remove('cert-animate-in');
       }
     });
+
+    // Control visibility of additional projects wrapper section
+    if (this.addWrapper) {
+      const hasVisibleAdditional = pageCards.some((card) => this.addCards.includes(card));
+      if (hasVisibleAdditional) {
+        this.addWrapper.classList.remove('hidden');
+      } else {
+        this.addWrapper.classList.add('hidden');
+      }
+    }
+
+    // Info text
+    if (this.infoEl) {
+      if (total === 0) {
+        this.infoEl.textContent = 'No projects match this filter.';
+      } else {
+        const from = start + 1;
+        const to   = Math.min(end, total);
+        this.infoEl.textContent = `Showing ${from}–${to} of ${total} projects`;
+      }
+    }
+
+    // Pagination buttons
+    this.nav.innerHTML = '';
+    if (pages <= 1) return;
+
+    const makeBtn = (label, targetPage, isCurrent, isDisabled) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = label;
+      btn.disabled = isDisabled;
+      btn.className = [
+        'inline-flex items-center justify-center w-8 h-8 rounded-full text-[11px] font-semibold transition-all duration-150',
+        isCurrent
+          ? 'bg-portfolio-accent text-black shadow-md scale-105'
+          : isDisabled
+            ? 'text-slate-600 cursor-not-allowed'
+            : 'text-slate-300 hover:bg-slate-800 hover:text-slate-50',
+      ].join(' ');
+      if (!isDisabled) {
+        btn.addEventListener('click', () => {
+          this.page = targetPage;
+          this.render();
+          // Smooth scroll to the top of the main projects section or grid
+          const scrollTarget = this.mainGrid || document.getElementById('projects');
+          if (scrollTarget) {
+            scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      }
+      return btn;
+    };
+
+    // ← Prev
+    this.nav.appendChild(makeBtn('←', page - 1, false, page === 1));
+
+    // Numbered pages (show at most 5 around current)
+    const delta = 2;
+    for (let i = 1; i <= pages; i++) {
+      if (i === 1 || i === pages || (i >= page - delta && i <= page + delta)) {
+        this.nav.appendChild(makeBtn(String(i), i, i === page, false));
+      } else if (i === page - delta - 1 || i === page + delta + 1) {
+        const dots = document.createElement('span');
+        dots.textContent = '…';
+        dots.className = 'text-slate-500 text-[11px] px-1';
+        this.nav.appendChild(dots);
+      }
+    }
+
+    // → Next
+    this.nav.appendChild(makeBtn('→', page + 1, false, page === pages));
+  }
+
+  updateActiveButton(activeBtn) {
+    this.buttons.forEach((btn) => btn.classList.remove('project-filter-pill-active'));
+    activeBtn.classList.add('project-filter-pill-active');
   }
 }
+
 
 class PortfolioApp {
   constructor() {
@@ -374,7 +492,7 @@ class PortfolioApp {
       'main section[id]'
     );
     this.projectDetailsModal = new ProjectDetailsModal();
-    this.projectFilter = new ProjectFilter();
+    this.projectFilter = new ProjectFilterPaginator();
   }
 
   init() {
@@ -391,7 +509,7 @@ class PortfolioApp {
     const cardCount = document.querySelectorAll('[data-project-tags]').length;
     const filterCount = document.querySelectorAll('[data-project-filter]').length;
     console.info(
-      `[portfolio] ready — ${cardCount} project cards, ${filterCount} filters wired`
+      `[portfolio] ready — ${cardCount} project cards, ${filterCount} filters, pagination enabled`
     );
   }
 
