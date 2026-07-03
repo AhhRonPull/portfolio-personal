@@ -910,6 +910,50 @@
                 </div>
               </article>
 
+              <!-- Attendance Tracking System -->
+              <article
+                class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-gradient-to-b from-slate-950 to-slate-900/80 p-5"
+                data-project-tags="systems"
+              >
+                <div class="project-thumb project-thumb-nda">
+                  <img src="Assets/img/Project/Blur_NDA/ATTENDANCE-TRACKING.png" alt="Attendance Tracking System preview (under NDA)" loading="lazy" />
+                  <span class="project-thumb-label">Confidential · NDA</span>
+                </div>
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <h3 class="text-sm font-semibold text-slate-50">
+                      Facial Recognition Attendance System
+                    </h3>
+                    <p class="mt-1 text-xs text-slate-300">
+                      Cloud-based attendance platform utilizing AI facial recognition, geofencing, and complex leave logic tailored to statutory labor laws.
+                    </p>
+                  </div>
+                  <span
+                    class="inline-flex items-center justify-center text-center leading-tight rounded-full bg-portfolio-accent/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-wide text-portfolio-accent"
+                    >Next.js · Firebase</span
+                  >
+                </div>
+                <ul class="mt-3 space-y-1.5 text-[11px] text-slate-300">
+                  <li>
+                    • Integrated <span class="font-medium">face-api.js</span> for secure biometric clock-ins via webcam to prevent buddy punching.
+                  </li>
+                  <li>
+                    • Implemented <span class="font-medium">Leaflet geofencing</span> to validate employee location against authorized operational areas during check-in.
+                  </li>
+                  <li>
+                    • Built a comprehensive <span class="font-medium">law-based leave engine</span> supporting complex policies like maternal leave and LWOP alongside standard overtime tracking.
+                  </li>
+                  <li>
+                    • Developed role-specific dashboards (Admin, HR, Manager, Employee) for real-time monitoring and exact timezone-adjusted payroll exports.
+                  </li>
+                </ul>
+                <div class="mt-auto pt-4 flex flex-wrap items-center justify-between gap-2">
+                  <p class="text-[11px] text-slate-400">
+                    Next.js · Firebase · face-api.js · Leaflet · Tailwind
+                  </p>
+                </div>
+              </article>
+
               <!-- Commissary Inventory Management Suite -->
               <article
                 class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-gradient-to-b from-slate-950 to-slate-900/80 p-5"
@@ -1323,8 +1367,9 @@
                   class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-slate-950/90 p-5"
                   data-project-tags="systems"
                 >
-                  <div class="project-thumb">
-                    <span class="project-thumb-label">Preview Soon</span>
+                  <div class="project-thumb project-thumb-nda">
+                    <img src="Assets/img/Project/Blur_NDA/finance.png" alt="Finance Operations Portal preview (under NDA)" loading="lazy" />
+                    <span class="project-thumb-label">Confidential · NDA</span>
                   </div>
                   <div class="flex items-start justify-between gap-4">
                     <div>
@@ -1564,7 +1609,7 @@
                 <!-- Gym Membership Management System -->
                 <article
                   class="project-card group h-full flex flex-col rounded-2xl border border-slate-800/70 bg-slate-950/90 p-5"
-                  data-project-tags="systems"
+                  data-project-tags="systems analytics"
                 >
                   <div class="project-thumb">
                     <img src="Assets/img/Project/membership.png" alt="Gym Membership Management System preview" loading="lazy" />
@@ -1576,9 +1621,7 @@
                         Gym Membership Management System
                       </h4>
                       <p class="mt-1 text-xs text-slate-300">
-                        Web-based gym membership platform with PWA support and
-                        four distinct roles: admin, staff, trainer, and
-                        member.
+                        Web-based gym platform with PWA support, four distinct user roles, and an integrated QR attendance system powering real-time traffic and occupancy analytics.
                       </p>
                     </div>
                     <span
@@ -1588,24 +1631,21 @@
                   </div>
                   <ul class="mt-3 space-y-1.5 text-[11px] text-slate-300">
                     <li>
-                      • Built modules for members, plans, payments, attendance
-                      check-in, and reporting tied to a clean MySQL schema.
+                      • Developed a <span class="font-medium">QR-based attendance system</span> that transforms check-in data into actionable insights, including session duration analysis.
                     </li>
                     <li>
-                      • Implemented
-                      <span class="font-medium">role-scoped permissions</span>
-                      so trainers, staff, admins, and members each see only
-                      what they need.
+                      • Built <span class="font-medium">occupancy estimation and peak-hour detection</span> models to estimate active facility traffic using interval overlap and data aggregation.
                     </li>
                     <li>
-                      • Added a member-facing portal (dashboard, profile,
-                      membership status, history) with PWA scaffolding for
-                      “Add to Home Screen”.
+                      • Applied <span class="font-medium">time series forecasting (exponential smoothing)</span> to predict future gym traffic trends for better resource allocation.
+                    </li>
+                    <li>
+                      • Implemented role-scoped permissions and a member-facing portal with <span class="font-medium">PWA support</span> for "Add to Home Screen".
                     </li>
                   </ul>
                   <div class="mt-4 flex flex-wrap items-center justify-between gap-2">
                     <p class="text-[11px] text-slate-400">
-                      PHP · MySQL · PWA · Bootstrap
+                      PHP · MySQL · PWA · Analytics · Forecasting
                     </p>
                   </div>
                 </article>
