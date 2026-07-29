@@ -3,10 +3,13 @@ module.exports = {
   content: ['./index.html', './Assets/js/**/*.js'],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Outfit', 'sans-serif'],
+      },
       colors: {
         portfolio: {
-          bg: '#060d1e',
-          surface: '#0d1a33',
+          bg: '#040914',
+          surface: '#0a1329',
           accent: '#d4af37',
           accentSoft: '#f5d76e',
         },

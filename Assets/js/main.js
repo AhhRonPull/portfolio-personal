@@ -6,56 +6,83 @@ console.info('[portfolio] main.js loaded — initializing UI');
 class ScrollAnimator {
   constructor(selector, options = {}) {
     this.selector = selector;
-    // threshold: 0 means "trigger as soon as ANY pixel is visible".
-    // Using 0.2 (20%) breaks for sections taller than the viewport,
-    // because the threshold can never be reached.
-    this.threshold = options.threshold ?? 0;
-    this.rootMargin = options.rootMargin ?? '0px 0px -60px 0px';
-    this.observer = null;
   }
 
   init() {
     const elements = document.querySelectorAll(this.selector);
     if (elements.length === 0) {
-      console.info('[portfolio] ScrollAnimator: no .section-observe elements');
+      console.info('[portfolio] ScrollAnimator: no elements');
       return;
     }
 
-    if (!('IntersectionObserver' in window)) {
-      // Fallback for ancient browsers: just show everything immediately.
-      console.info('[portfolio] IntersectionObserver unsupported, revealing all sections');
-      elements.forEach((el) => el.classList.add('section-visible'));
-      return;
-    }
-
-    this.observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('section-visible');
-            this.observer.unobserve(entry.target);
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+      
+      // Section animations
+      elements.forEach((el) => {
+        gsap.fromTo(el, 
+          { opacity: 0, y: 30 },
+          {
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              once: true
+            },
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            ease: "power3.out",
+            clearProps: "all" // Allows CSS to take over for hover states, etc.
           }
-        });
-      },
-      {
-        threshold: this.threshold,
-        rootMargin: this.rootMargin,
+        );
+      });
+
+      // Hero specific animation
+      const hero = document.getElementById('hero');
+      if (hero) {
+        const heroElements = hero.querySelectorAll('h1, p, .flex-wrap a, .project-thumb, .absolute');
+        gsap.fromTo(heroElements, 
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power3.out",
+            delay: 0.2,
+            clearProps: "all"
+          }
+        );
       }
-    );
-
-    elements.forEach((el) => this.observer.observe(el));
-
-    // Defensive fallback: if for any reason a section doesn't get marked
-    // visible within 1.5s (e.g. page restored from bfcache, observer not
-    // firing on the very first paint), force them all visible so the
-    // page never stays blank.
-    setTimeout(() => {
-      document.querySelectorAll(this.selector).forEach((el) => {
-        if (!el.classList.contains('section-visible')) {
-          el.classList.add('section-visible');
+      
+      // Project cards stagger animation
+      const projectGrids = document.querySelectorAll('.grid');
+      projectGrids.forEach(grid => {
+        const cards = grid.querySelectorAll('.project-card');
+        if (cards.length > 0) {
+          gsap.fromTo(cards, 
+            { opacity: 0, y: 40 },
+            {
+              scrollTrigger: {
+                trigger: grid,
+                start: "top 80%",
+                once: true
+              },
+              opacity: 1,
+              y: 0,
+              duration: 0.7,
+              stagger: 0.1,
+              ease: "power2.out",
+              clearProps: "all"
+            }
+          );
         }
       });
-    }, 1500);
+      
+    } else {
+      // Fallback
+      elements.forEach((el) => el.classList.add('section-visible'));
+    }
   }
 }
 
@@ -245,16 +272,15 @@ class ProjectDetailsModal {
     const modal = document.createElement('div');
     modal.id = 'project-modal';
     modal.className =
-      'fixed inset-0 z-50 hidden items-center justify-center bg-black/70 p-4';
+      'fixed inset-0 z-50 hidden items-center justify-center bg-black/0 p-4 md:p-8';
     modal.innerHTML = `
-      <div class="project-modal-inner relative max-w-3xl w-full max-h-[80vh] overflow-hidden rounded-2xl bg-slate-950 border border-slate-700/80 shadow-2xl">
-        <button type="button" data-project-modal-close
-          class="absolute right-3 top-3 rounded-full bg-slate-800/80 px-2 py-1 text-xs text-slate-200 hover:bg-slate-700">
+      <div class="project-modal-inner relative w-full max-h-[85vh] overflow-hidden">
+        <button type="button" data-project-modal-close class="modal-close-btn" aria-label="Close modal">
           ✕
         </button>
-        <div class="flex flex-col gap-3 p-4 md:p-6 h-full">
-          <h3 data-project-modal-title class="text-sm font-semibold text-slate-50"></h3>
-          <div data-project-modal-body class="flex-1 overflow-y-auto pr-1 text-[11px] text-slate-200 leading-relaxed"></div>
+        <div class="flex flex-col gap-4 p-6 md:p-8 h-full">
+          <h3 data-project-modal-title class="text-base md:text-lg font-semibold text-slate-50 pr-10 leading-snug"></h3>
+          <div data-project-modal-body class="modal-body flex-1 overflow-y-auto pr-1 text-[12.5px] text-slate-200/90 leading-relaxed"></div>
         </div>
       </div>
     `;
@@ -289,9 +315,23 @@ class ProjectDetailsModal {
     this.modalBody.innerHTML = template.innerHTML;
     this.modal.classList.remove('hidden');
     this.modal.classList.add('flex');
+    document.body.classList.add('modal-open');
 
     const inner = this.modal.querySelector('.project-modal-inner');
-    if (inner) {
+
+    // Use GSAP for buttery smooth modal animation
+    if (typeof gsap !== 'undefined') {
+      gsap.fromTo(this.modal,
+        { backgroundColor: 'rgba(0,0,0,0)' },
+        { backgroundColor: 'rgba(0,0,0,0.7)', duration: 0.35, ease: 'power2.out' }
+      );
+      if (inner) {
+        gsap.fromTo(inner,
+          { opacity: 0, y: 24, scale: 0.96 },
+          { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: 'power3.out', delay: 0.05 }
+        );
+      }
+    } else if (inner) {
       inner.classList.remove('modal-animate-in', 'modal-animate-out');
       // eslint-disable-next-line no-unused-expressions
       inner.offsetWidth;
@@ -303,21 +343,30 @@ class ProjectDetailsModal {
     if (!this.modal) return;
 
     const inner = this.modal.querySelector('.project-modal-inner');
-    if (inner) {
+
+    const finishClose = () => {
+      this.modal.classList.add('hidden');
+      this.modal.classList.remove('flex');
+      document.body.classList.remove('modal-open');
+    };
+
+    if (typeof gsap !== 'undefined') {
+      const tl = gsap.timeline({ onComplete: finishClose });
+      if (inner) {
+        tl.to(inner, { opacity: 0, y: 14, scale: 0.97, duration: 0.25, ease: 'power2.in' }, 0);
+      }
+      tl.to(this.modal, { backgroundColor: 'rgba(0,0,0,0)', duration: 0.3, ease: 'power2.in' }, 0);
+    } else if (inner) {
       inner.classList.remove('modal-animate-in');
       inner.classList.add('modal-animate-out');
-
       const handleEnd = () => {
         inner.removeEventListener('animationend', handleEnd);
         inner.classList.remove('modal-animate-out');
-        this.modal.classList.add('hidden');
-        this.modal.classList.remove('flex');
+        finishClose();
       };
-
       inner.addEventListener('animationend', handleEnd);
     } else {
-      this.modal.classList.add('hidden');
-      this.modal.classList.remove('flex');
+      finishClose();
     }
   }
 }

@@ -12,10 +12,40 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+html {
   scroll-behavior: smooth;
 }
 
+/* ============================================================
+   Global polish
+   ============================================================ */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #040914;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.25);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.45);
+}
+
+/* ============================================================
+   Section titles
+   ============================================================ */
 .section-title {
   @apply text-lg md:text-xl font-semibold text-slate-50 tracking-wide;
 }
@@ -31,72 +61,85 @@ body {
     rgba(212, 175, 55, 1),
     rgba(245, 215, 110, 0.85)
   );
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Scroll reveal animation.
-   Content is visible by default so the page never appears blank if
-   JavaScript fails to load or the IntersectionObserver doesn't fire.
-   The .js-ready class is added by main.js immediately on load; only
-   then do we hide sections so they can animate in as the user scrolls. */
+/* ============================================================
+   Scroll reveal — GSAP handles animation now
+   ============================================================ */
 .section-observe {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-}
-
-.js-ready .section-observe {
-  opacity: 0;
-  transform: translateY(24px);
-}
-
-.js-ready .section-observe.section-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
 /* ============================================================
+   Navigation links — smooth underline animation
+   ============================================================ */
+.nav-link {
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.25s ease-out;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: linear-gradient(to right, #d4af37, #f5d76e);
+  border-radius: 999px;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link:hover::after,
+.nav-link-active::after {
+  width: 100%;
+}
+
+.nav-link-active {
+  color: rgb(212 175 55);
+}
+
+/* ============================================================
    Project cards
-   Refined for a denser 4-column grid: cleaner borders, subtle
-   depth, hover lift with gold accent, and image hover zoom.
    ============================================================ */
 .project-card {
   position: relative;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.3s ease-out, border-color 0.3s ease-out,
-    background-color 0.25s ease-out;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.4s ease-out,
+    background-color 0.4s ease-out;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .project-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-6px) scale(1.01);
   border-color: rgba(212, 175, 55, 0.5);
-  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(212, 175, 55, 0.08);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(212, 175, 55, 0.15),
+    0 0 20px rgba(212, 175, 55, 0.08);
+  z-index: 10;
 }
 
-/* Compact card layout.
-   The card surfaces image + title + 1-2 line description + tech pill +
-   "View details" action. The full bullet list and verbose tech stack live
-   inside the details modal so the grid stays scannable. */
+/* Compact card layout */
 .project-card > ul {
   display: none;
 }
 
-/* Hide the verbose tech-stack line at the bottom of the card; it becomes
-   a "Tech Stack" section in the modal instead. */
 .project-card > div:last-of-type p.text-slate-400 {
   display: none;
 }
 
-/* Always push the footer (last div) to the bottom so cards in the same
-   row line up regardless of how short the description is. */
 .project-card > div:last-of-type {
   margin-top: auto;
   padding-top: 0.875rem;
   border-top: 1px solid rgba(148, 163, 184, 0.08);
 }
 
-/* Refined "View details" trigger button — matches both hand-written
-   triggers and the JS-auto-injected ones. */
+/* "View details" trigger */
 .project-card [data-project-open],
 .project-details-trigger {
   display: inline-flex;
@@ -105,7 +148,7 @@ body {
   font-size: 11px;
   font-weight: 600;
   color: rgba(212, 175, 55, 0.95);
-  transition: color 0.18s ease-out, gap 0.2s ease-out;
+  transition: color 0.25s ease-out, gap 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   background: transparent;
   border: 0;
@@ -117,12 +160,11 @@ body {
 .project-card [data-project-open]:hover,
 .project-details-trigger:hover {
   color: rgba(245, 215, 110, 1);
-  gap: 0.5rem;
+  gap: 0.55rem;
   text-decoration: none;
 }
 
-/* External GitHub-style links inside cards keep an underline-on-hover
-   signal so users can distinguish "open modal" from "leave site". */
+/* External links inside cards */
 .project-card a[href][target="_blank"] {
   display: inline-flex;
   align-items: center;
@@ -130,7 +172,7 @@ body {
   font-size: 11px;
   font-weight: 600;
   color: rgba(212, 175, 55, 0.85);
-  transition: color 0.18s ease-out;
+  transition: color 0.25s ease-out;
 }
 
 .project-card a[href][target="_blank"]:hover {
@@ -139,11 +181,9 @@ body {
   text-underline-offset: 3px;
 }
 
-/* Image thumbnail / placeholder area at the top of every project card.
-   Drop an <img> inside .project-thumb to override the placeholder.
-   When an image is present we automatically swap to a clean solid
-   border, hide the redundant label, and add a soft bottom fade so the
-   screenshot transitions gracefully into the card body. */
+/* ============================================================
+   Project thumbnails
+   ============================================================ */
 .project-thumb {
   position: relative;
   aspect-ratio: 16 / 9;
@@ -160,7 +200,6 @@ body {
     inset 0 -22px 36px -22px rgba(0, 0, 0, 0.55);
 }
 
-/* Empty placeholder cards keep the dashed gold "awaiting screenshot" look. */
 .project-thumb:not(:has(img)) {
   border: 1px dashed rgba(212, 175, 55, 0.3);
 }
@@ -170,37 +209,22 @@ body {
   position: absolute;
   inset: 0;
   background-image:
-    radial-gradient(
-      circle at 22% 28%,
-      rgba(212, 175, 55, 0.16) 0%,
-      transparent 45%
-    ),
-    radial-gradient(
-      circle at 78% 72%,
-      rgba(245, 215, 110, 0.1) 0%,
-      transparent 45%
-    );
+    radial-gradient(circle at 22% 28%, rgba(212, 175, 55, 0.16) 0%, transparent 45%),
+    radial-gradient(circle at 78% 72%, rgba(245, 215, 110, 0.1) 0%, transparent 45%);
   pointer-events: none;
   transition: opacity 0.3s ease-out;
 }
 
-/* Quiet the radial pattern when an actual screenshot is present. */
 .project-thumb:has(img)::before {
   opacity: 0;
 }
 
-/* Soft bottom fade on imaged thumbs (skipped on NDA variant which has its
-   own overlay). Helps the screenshot transition into the card body. */
 .project-thumb:has(img):not(.project-thumb-nda)::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 3;
-  background: linear-gradient(
-    to bottom,
-    transparent 55%,
-    rgba(6, 13, 30, 0.55) 100%
-  );
+  background: linear-gradient(to bottom, transparent 55%, rgba(6, 13, 30, 0.55) 100%);
   pointer-events: none;
 }
 
@@ -227,8 +251,6 @@ body {
   box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
 }
 
-/* Hide the redundant label when a real screenshot is shown (NDA cards keep
-   their centered "Confidential · NDA" badge — handled below). */
 .project-thumb:has(img):not(.project-thumb-nda) .project-thumb-label {
   display: none;
 }
@@ -244,8 +266,6 @@ body {
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Portrait screenshots (mobile apps) — letterbox instead of crop so the
-   full phone-sized UI is visible. */
 .project-thumb img.is-portrait {
   object-fit: contain;
   background: #060d1e;
@@ -260,9 +280,7 @@ body {
   transform: scale(1.02);
 }
 
-/* NDA / confidential variant: blur the underlying screenshot and overlay a
-   centered "Confidential — NDA" badge so client work can be previewed without
-   leaking sensitive UI details. */
+/* NDA variant */
 .project-thumb-nda {
   border-style: solid;
   border-color: rgba(212, 175, 55, 0.35);
@@ -282,11 +300,7 @@ body {
   position: absolute;
   inset: 0;
   z-index: 3;
-  background: linear-gradient(
-    135deg,
-    rgba(13, 26, 51, 0.45) 0%,
-    rgba(6, 13, 30, 0.6) 100%
-  );
+  background: linear-gradient(135deg, rgba(13, 26, 51, 0.45) 0%, rgba(6, 13, 30, 0.6) 100%);
   pointer-events: none;
 }
 
@@ -306,11 +320,126 @@ body {
   backdrop-filter: blur(2px);
 }
 
-.nav-link-active {
-  color: rgb(212 175 55);
+/* ============================================================
+   Premium Modal — glassmorphic, centered, smooth
+   ============================================================ */
+#project-modal {
+  transition: background-color 0.35s ease-out;
 }
 
-/* Simple fade / slide animation for project filter cards and modals */
+.project-modal-inner {
+  position: relative;
+  width: 100%;
+  max-width: 52rem;
+  max-height: 85vh;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  background: linear-gradient(
+    165deg,
+    rgba(10, 19, 41, 0.97) 0%,
+    rgba(4, 9, 20, 0.98) 100%
+  );
+  backdrop-filter: blur(24px) saturate(1.3);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.8),
+    0 0 1px rgba(212, 175, 55, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Gold gradient header bar across the top */
+.project-modal-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.6) 20%,
+    rgba(245, 215, 110, 0.8) 50%,
+    rgba(212, 175, 55, 0.6) 80%,
+    transparent 100%
+  );
+  z-index: 10;
+}
+
+/* Modal close button */
+.modal-close-btn {
+  position: absolute;
+  right: 0.875rem;
+  top: 0.875rem;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(8px);
+  color: rgba(226, 232, 240, 0.8);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.25s ease-out;
+}
+
+.modal-close-btn:hover {
+  background: rgba(212, 175, 55, 0.15);
+  border-color: rgba(212, 175, 55, 0.4);
+  color: #f5d76e;
+  transform: rotate(90deg);
+}
+
+/* Modal body scrollbar */
+.modal-body::-webkit-scrollbar {
+  width: 4px;
+}
+.modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.modal-body::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.2);
+  border-radius: 999px;
+}
+
+/* ============================================================
+   Animations
+   ============================================================ */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}
+
+.modal-animate-in {
+  animation: modalFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.modal-animate-out {
+  animation: modalFadeOut 0.25s ease-in both;
+}
+
 @keyframes fadeInUpSoft {
   from {
     opacity: 0;
@@ -322,47 +451,29 @@ body {
   }
 }
 
-@keyframes fadeOutDownSoft {
-  from {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(12px) scale(0.98);
-  }
-}
-
-.modal-animate-in {
-  animation: fadeInUpSoft 0.25s ease-out both;
-}
-
-.modal-animate-out {
-  animation: fadeOutDownSoft 0.2s ease-in both;
-}
-
 .cert-animate-in {
   animation: fadeInUpSoft 0.35s ease-out both;
 }
 
+/* ============================================================
+   Filter pills
+   ============================================================ */
 .project-filter-pill {
   cursor: pointer;
-  border-radius: 9999px; /* rounded-full */
-  border: 1px solid rgba(148, 163, 184, 0.8); /* slate-400/80 approx */
-  background-color: rgba(15, 23, 42, 0.6); /* slate-900/60 approx */
-  padding: 0.375rem 0.75rem; /* py-1.5 px-3 */
+  border-radius: 9999px;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  background-color: rgba(15, 23, 42, 0.5);
+  padding: 0.375rem 0.875rem;
   font-size: 11px;
   font-weight: 500;
-  color: #e5e7eb; /* slate-200 */
-  transition-property: background-color, border-color, color, transform,
-    box-shadow;
-  transition-duration: 150ms;
-  transition-timing-function: ease-out;
+  color: rgba(203, 213, 225, 0.85);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .project-filter-pill:hover {
-  border-color: #d4af37; /* portfolio-accent */
+  border-color: rgba(212, 175, 55, 0.5);
   color: #d4af37;
+  background-color: rgba(212, 175, 55, 0.06);
 }
 
 .project-filter-pill:active {
@@ -370,10 +481,8 @@ body {
 }
 
 .project-filter-pill-active {
-  border-color: #d4af37;
-  background-color: rgba(13, 26, 51, 0.9);
+  border-color: rgba(212, 175, 55, 0.6);
+  background-color: rgba(212, 175, 55, 0.1);
   color: #d4af37;
-  box-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.15);
 }
